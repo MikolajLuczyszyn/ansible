@@ -1,0 +1,6 @@
+FROM postgres:alpine
+
+USER postgres
+
+COPY bash_postgres.sh /docker-entrypoint-initdb.d
+

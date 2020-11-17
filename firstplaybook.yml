@@ -1,0 +1,65 @@
+- hosts: all
+  name: install something
+  tasks:
+    - name: "ping"
+      ping:
+      
+    - name: "CURL INSTALL"
+      apt:
+          name: curl
+          state: present
+         
+          update_cache: true
+      become: yes 
+    
+    - name: "Copy Dockerfile_Postgres"
+      copy:
+           src: /home/mluc/Dockerfile_postgres
+           dest: /home/mluc/Dockerfile_postgres
+   
+    - name: "Copy bash_postgress.sh"  
+      copy:
+           src: /home/mluc/bash_postgres.sh
+           dest: /home/mluc/bash_postgres.sh
+    
+    - name: "Copy docker_compose.yml"
+      copy:    
+           src: /home/mluc/docker_compose.yml
+           dest: /home/mluc/docker_compose.yml
+    
+    - name: "Copy main.py"
+      copy:
+           src: /home/mluc/main.py
+           dest: /home/mluc/main.py
+
+    - name: "Copy Dockerfile_main"
+      copy:
+           src: /home/mluc/Dockerfile_main
+           dest: /home/mluc/Dockerfile_main
+
+    - name: "Copy Dockerfile_nginx"
+      copy:
+           src: /home/mluc/Dockerfile_nginx
+           dest: /home/mluc/Dockerfile_nginx
+   
+    - name: "copy nging.conf"
+      copy:
+           src: /home/mluc/nginx.conf
+           dest: /home/mluc/nginx.conf
+
+    - name: "Build web_image"
+      shell: docker build -t web_image -f /home/mluc/Dockerfile_nginx .
+      become: yes
+
+    - name: "build image backend"
+      shell: docker build -t backend -f /home/mluc/Dockerfile_main .
+      become: yes
+           
+    - name: "build image postgres" 
+      shell: docker build -t postgress -f /home/mluc/Dockerfile_postgres . 
+      become: yes
+   
+    - name: "Deploy service" 
+      shell: docker stack deploy --compose-file /home/mluc/docker_compose.yml stack
+      become: yes  
+           

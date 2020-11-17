@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+
+        backend:
+                image: backend
+                ports:
+                - "8080:80"
+                networks:
+                - overlay
+        web:
+                image: web_image
+                ports:
+                - "8084:81"
+                networks:
+                - overlay
+
+        postgres_db:
+                 image: postgress
+                 networks:
+                 - overlay
+                 ports:
+                 - 5432:5432
+                 environment:
+                   POSTGRES_PASSWORD: admin
+networks:
+        overlay:
