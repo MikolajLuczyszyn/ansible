@@ -1,0 +1,110 @@
+- hosts: all
+  user: vagrant 
+  name: install something
+  tasks:
+    - name: "ping"
+      ping:
+    
+   
+    - name: "Upgrade all packages"
+      yum:
+        name: '*'
+        state: present
+      become: yes
+
+    - name: utils
+      yum:
+         name: yum-utils
+         state: latest
+      become: yes 
+
+    - name: "Add repository"
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+      become: yes
+    
+    
+
+    - name: "install docker-ce"
+      yum:
+        name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+        update_cache: yes
+        state: latest
+      become: yes
+    
+    
+    - name: "systemctl start"
+      service:
+        name: docker
+        state: started
+        enabled: yes
+      become: yes 
+    
+    - name:
+      yum:
+       name: python-docker
+       state: latest
+      become: yes
+
+      
+    
+    - name: "Swarm"
+      docker_swarm:
+        state: present
+        advertise_addr: 192.168.33.10
+      become: yes
+
+
+
+    - name: "Copy Dockerfile_Postgres"
+      copy:
+           src: /home/mluc/Dockerfile_postgres
+           dest: /home/vagrant/Dockerfile_postgres
+   
+    - name: "Copy bash_postgress.sh"  
+      copy:
+           src: /home/mluc/bash_postgres.sh
+           dest: /home/vagrant/bash_postgres.sh
+    
+    - name: "Copy docker_compose.yml"
+      copy:    
+           src: /home/mluc/docker_compose.yml
+           dest: /home/vagrant/docker_compose.yml
+    
+    - name: "Copy main.py"
+      copy:
+           src: /home/mluc/main.py
+           dest: /home/vagrant/main.py
+
+    - name: "Copy Dockerfile_main"
+      copy:
+           src: /home/mluc/Dockerfile_main
+           dest: /home/vagrant/Dockerfile_main
+
+    - name: "Copy Dockerfile_nginx"
+      copy:
+           src: /home/mluc/Dockerfile_nginx
+           dest: /home/vagrant/Dockerfile_nginx
+   
+    - name: "copy nging.conf"
+      copy:
+           src: /home/mluc/nginx.conf
+           dest: /home/vagrant/nginx.conf
+
+    - name: "Build web_image"
+      shell: docker build -t web_image -f /home/vagrant/Dockerfile_nginx .
+      become: yes
+
+    - name: "build image backend"
+      shell: docker build -t backend -f /home/vagrant/Dockerfile_main .
+      become: yes
+           
+    - name: "build image postgres" 
+      shell: docker build -t postgress -f /home/vagrant/Dockerfile_postgres . 
+      become: yes
+   
+    - name: "Deploy service" 
+      shell: docker stack deploy --compose-file /home/vagrant/docker_compose.yml stack
+      become: yes  
+     
