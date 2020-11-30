@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend
+spec:
+  containers:
+  - image: backend:latest
+    imagePullPolicy: Never
+    name: backend
+
