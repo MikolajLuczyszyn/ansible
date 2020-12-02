@@ -1,0 +1,4 @@
+Dockerfile_postgress:
+COPY bash_postgres.sh /docker-entrypoint-initdb.d
+
+to usunalem
