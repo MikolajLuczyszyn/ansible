@@ -1,5 +1,4 @@
-- hosts: all
-  user: vagrant 
+- hosts: webservers 
   name: install something
   tasks:
     - name: "ping"
