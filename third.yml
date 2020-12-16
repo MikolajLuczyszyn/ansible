@@ -4,7 +4,13 @@
   tasks:
     - name: "ping"
       ping:
-    
+
+    - name: "systemctl start"
+      service:
+        name: docker
+        state: started
+        enabled: yes
+      become: yes 
       
     - name: "Swarm"
       docker_swarm:
