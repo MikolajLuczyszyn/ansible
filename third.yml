@@ -1,5 +1,6 @@
-- hosts: webservers 
-  name: install something
+- hosts: localhost
+  connection: local 
+  
   tasks:
     - name: "ping"
       ping:
