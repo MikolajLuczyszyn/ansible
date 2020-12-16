@@ -2,24 +2,17 @@
   connection: local 
   
   tasks:
-    - name: "ping"
-      ping:
-
-    - name: "CURL INSTALL"
-      apt:
-          name: curl 
-          state: present
-         
-          update_cache: true
+    - name: install certain python modules for docker
+      pip:
+         name: docker
+         state: present
       become: yes
-    
-
-    - name:
-      apt:
-          name: python-docker
-          state: latest
+      
+    - name: install certain python modules for docker
+      pip:
+         name: docker-py
+         state: present
       become: yes
-   
 
 
     - name: "systemctl start"
