@@ -5,6 +5,23 @@
     - name: "ping"
       ping:
 
+    - name: "CURL INSTALL"
+      apt:
+          name: curl 
+          state: present
+         
+          update_cache: true
+      become: yes
+    
+
+    - name:
+      apt:
+          name: python-docker
+          state: latest
+      become: yes
+   
+
+
     - name: "systemctl start"
       service:
         name: docker
