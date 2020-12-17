@@ -25,10 +25,10 @@
     - name: Build image nginx
       docker_image:
         name: web_image 
-        build:
-          path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_nginx
-        source: build
-        pull: true
+        path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_nginx
+        state: present
+        force: true
+        tag: latest
       become: yes
       
 
