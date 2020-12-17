@@ -55,8 +55,12 @@
         source: build      
         state: present
      
-
-    - name: "Deploy service" 
-      shell: docker stack deploy --compose-file /var/lib/jenkins/workspace/ansible-demo/docker_compose.yml stack
-      become: yes  
+    
+    - name: Deploy stack from a compose file
+      become: yes
+      community.general.docker_stack:
+        state: present
+        name: mystack
+        compose:
+           - /var/lib/jenkins/workspace/ansible-demo/docker_compose.yml 
      
