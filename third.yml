@@ -27,7 +27,7 @@
         name: web_image 
         build:
           path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_nginx
-          source: build
+        source: build
         state: present
       become: yes
       
