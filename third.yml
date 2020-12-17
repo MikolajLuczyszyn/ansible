@@ -57,6 +57,6 @@
      
 
     - name: "Deploy service" 
-      shell: docker stack deploy --compose-file /var/lib/jenkins/workspace/ansible-demo stack
+      shell: docker stack deploy --compose-file /var/lib/jenkins/workspace/ansible-demo/docker_compose.yml stack
       become: yes  
      
