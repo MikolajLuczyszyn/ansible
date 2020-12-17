@@ -20,19 +20,26 @@
         state: present
         advertise_addr: 192.168.0.16
       become: yes
+    
 
-    - name: "Build web_image"
-      shell: docker build -t web_image -f /var/lib/jenkins/workspace/ansible-demo/Dockerfile_nginx .
-      become: yes
-
-    - name: "build image backend"
-      shell: docker build -t backend -f /var/lib/jenkins/workspace/ansible-demo/Dockerfile_main .
-      become: yes
+    - name: Build image nginx
+      docker_image:
+        name: web_image 
+        build:
+          path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_nginx
+    
+    - name: Build image backend
+      docker_image:
+        name: backend
+        build:
+          path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_main
+    
+    - name: Build image postgres
+      docker_image:
+        name: postgress
+        build:
+          path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_postgres      
            
-    - name: "build image postgres" 
-      shell: docker build -t postgress -f /var/lib/jenkins/workspace/ansible-demo/Dockerfile_postgres . 
-      become: yes
-   
     - name: "Deploy service" 
       shell: docker stack deploy --compose-file /var/lib/jenkins/workspace/ansible-demo stack
       become: yes  
