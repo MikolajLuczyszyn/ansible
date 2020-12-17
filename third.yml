@@ -57,8 +57,8 @@
    
     - name: Deploy
       become: yes
-      community.general.docker_stack:
-            
+      docker_stack:
+              state: present
               name: stack
               compose:
                       - /var/lib/jenkins/workspace/ansible-demo/docker_compose.yml
