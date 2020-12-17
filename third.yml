@@ -27,19 +27,22 @@
         name: web_image 
         build:
           path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_nginx
-    
+      become: yes
+
     - name: Build image backend
       docker_image:
         name: backend
         build:
           path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_main
-    
+      become: yes
+
     - name: Build image postgres
       docker_image:
         name: postgress
         build:
           path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_postgres      
-           
+      become: yes
+
     - name: "Deploy service" 
       shell: docker stack deploy --compose-file /var/lib/jenkins/workspace/ansible-demo stack
       become: yes  
