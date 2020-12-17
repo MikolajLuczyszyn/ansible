@@ -7,13 +7,6 @@
          name: docker
          state: present
       become: yes
-      
-    - name: install certain python modules for docker
-      pip:
-         name: docker-py
-         state: present
-      become: yes
-
 
     - name: "systemctl start"
       service:
