@@ -23,13 +23,15 @@
     
 
     - name: Build image nginx
+      become: yes
       docker_image:
         name: web_image 
         build:
-          path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_nginx
+          path: /var/lib/jenkins/workspace/ansible-demo/
+          dockerfile: Dockerfile_nginx
         source: build
         state: present
-      become: yes
+     
       
 
     - name: Build image backend
