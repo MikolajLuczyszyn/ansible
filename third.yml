@@ -37,6 +37,7 @@
         name: backend
         build:
           path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_main
+          pull: no
         source: build  
       become: yes
   
