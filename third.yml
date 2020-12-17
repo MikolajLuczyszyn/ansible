@@ -35,22 +35,25 @@
       
 
     - name: Build image backend
+      become: yes
       docker_image:
         name: backend
         build:
-          path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_main
-          pull: no
+          path: /var/lib/jenkins/workspace/ansible-demo/
+          dockerfile: Dockerfile_main
         source: build  
-      become: yes
+        state: present
   
 
     - name: Build image postgres
+      become: yes
       docker_image:
         name: postgress
         build:
-          path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_postgres
+          path: /var/lib/jenkins/workspace/ansible-demo/
+          dockerfile: Dockerfile_postgres
         source: build      
-      become: yes
+        state: present
      
 
     - name: "Deploy service" 
