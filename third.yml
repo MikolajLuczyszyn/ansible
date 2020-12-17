@@ -28,7 +28,7 @@
         build:
           path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_nginx
       become: yes
-      source: local
+      source: build
 
     - name: Build image backend
       docker_image:
@@ -36,7 +36,7 @@
         build:
           path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_main
       become: yes
-      source: local
+      source: build
 
     - name: Build image postgres
       docker_image:
@@ -44,7 +44,7 @@
         build:
           path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_postgres      
       become: yes
-      source: local
+      source: build
 
     - name: "Deploy service" 
       shell: docker stack deploy --compose-file /var/lib/jenkins/workspace/ansible-demo stack
