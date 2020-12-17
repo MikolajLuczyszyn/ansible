@@ -54,10 +54,11 @@
           dockerfile: Dockerfile_postgres
         source: build      
         state: present
+   
     - name: Deploy
       become: yes
       community.general.docker_stack:
-              state: present
+            
               name: stack
               compose:
                       - /var/lib/jenkins/workspace/ansible-demo/docker_compose.yml
