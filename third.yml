@@ -28,7 +28,7 @@
         build:
           path: /var/lib/jenkins/workspace/ansible-demo/Dockerfile_nginx
         source: build
-        pull: false
+        pull: true
       become: yes
       
 
