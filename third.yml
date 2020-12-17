@@ -22,15 +22,15 @@
       become: yes
 
     - name: "Build web_image"
-      shell: docker build -t web_image -f /var/lib/jenkins/workspace/ansible-demo .
+      shell: docker build -t web_image -f /var/lib/jenkins/workspace/ansible-demo/Dockerfile_nginx .
       become: yes
 
     - name: "build image backend"
-      shell: docker build -t backend -f /var/lib/jenkins/workspace/ansible-demo .
+      shell: docker build -t backend -f /var/lib/jenkins/workspace/ansible-demo/Dockerfile_main .
       become: yes
            
     - name: "build image postgres" 
-      shell: docker build -t postgress -f /var/lib/jenkins/workspace/ansible-demo . 
+      shell: docker build -t postgress -f /var/lib/jenkins/workspace/ansible-demo/Dockerfile_postgres . 
       become: yes
    
     - name: "Deploy service" 
