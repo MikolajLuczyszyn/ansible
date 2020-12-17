@@ -60,7 +60,7 @@
       become: yes
       community.general.docker_stack:
         state: present
-        name: mystack
+        name: stack
         compose:
-           - /var/lib/jenkins/workspace/ansible-demo/docker_compose.yml 
+        - /var/lib/jenkins/workspace/ansible-demo/docker_compose.yml 
      
