@@ -1,5 +1,6 @@
 from flask import Flask
 from psycopg2 import connect
+import os
 
 app= Flask(__name__)
 
@@ -7,10 +8,10 @@ app= Flask(__name__)
 def main():
     table_name="aplication"
     conn= connect(
-            dbname= "test",
-            user= "postgres",
-            host= "postgres_db",
-            password= "admin"
+            dbname= os.getenv('dbname'),
+            user= os.getenv('user'),
+            host= os.getenv('IP_POSTGRES'),
+            password= os.getenv('password')
             )
     cursor=conn.cursor()
     cursor.execute(f"Select * from {table_name};")
@@ -21,3 +22,4 @@ def main():
 
 if __name__=="__main__":
     app.run()
+
